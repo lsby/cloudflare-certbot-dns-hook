@@ -10,7 +10,11 @@ npm i -g @lsby/cloudflare-certbot-dns-hook
 
 ## 使用
 
-先安装certbot.
+首先您需要保证您的dns解析记录里存在您设置的子域名解析.
+
+例如, 如果您的域名是`aaa.com`, 您想为`bbb.aaa.com`这个子域设置ssl证书, 您就必须先手动设置好`bbb.aaa.com`的解析记录.
+
+接下来安装certbot.
 
 接下来创建两个文件, windows和linux略有不同.
 
