@@ -43,7 +43,5 @@ lsby-cloudflare-certbot-dns-hook-cleanup
 certbot certonly --manual --non-interactive --preferred-challenges=dns --manual-auth-hook <auth文件路径> --manual-cleanup-hook <cleanup文件路径> --agree-tos -m <邮箱> -d <完整子域名>
 ```
 
-注意:
-
-- 会卡住很久, 是正常的, 因为要等待dns传播. 现在设置的是等待一分钟.
-- 对于windows, 需要用管理员权限的cmd.
+- 执行后会卡住很久, 是正常的, 因为要等待dns传播. 现在设置的是等待一分钟.
+- 续期时重新执行以上命令即可.
