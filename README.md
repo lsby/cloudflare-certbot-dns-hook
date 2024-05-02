@@ -14,10 +14,10 @@ npm i -g @lsby/cloudflare-certbot-dns-hook
 
 接下来创建两个文件, windows和linux略有不同.
 
-- 文件后缀名略有不同, windows是`.cmd`或`.bat`, linux是`.sh`.
-- 设置环境变量的方法略有不同, windows是`set`, linux是`export`.
+- 文件后缀名不同, windows是`.cmd`或`.bat`, linux是`.sh`.
+- 设置环境变量的写法不同, windows是`set`, linux是`export`.
 
-下面的的示例使用windows的写法:
+下面的示例使用windows的写法:
 
 auth.cmd:
 
