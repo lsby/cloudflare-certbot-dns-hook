@@ -33,6 +33,7 @@ if (tr.id == null) throw new Error('Could not retrieve required information')
 console.log('Found challenge record for domain %O, starting deletion...', CERTBOT_DOMAIN)
 await cloudflare.dns.records.delete(tr.id, {
   zone_id: CLOUDFLARE_ZONE_ID,
+  // @ts-ignore
   body: null,
 })
 console.log('Deletion successful')
