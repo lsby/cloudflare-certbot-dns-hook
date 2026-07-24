@@ -18,19 +18,21 @@ if (!CLOUDFLARE_API_TOKEN || !CERTBOT_DOMAIN || !CERTBOT_VALIDATION || !CLOUDFLA
   process.exit(1)
 }
 
+const domain = CERTBOT_DOMAIN.replace(/^\*\./, '')
+
 const cloudflare = new Cloudflare({ apiToken: CLOUDFLARE_API_TOKEN })
 
 console.log('Querying DNS record list...')
 const dnsList = await cloudflare.dns.records.list({ zone_id: CLOUDFLARE_ZONE_ID })
 
-var tr = dnsList.result.filter((a) => a.name == '_acme-challenge.' + CERTBOT_DOMAIN)[0]
+var tr = dnsList.result.filter((record) => record.name == '_acme-challenge.' + domain)[0]
 if (tr == null) {
-  console.log('Domain %O challenge record not found...', CERTBOT_DOMAIN)
+  console.log('Domain %O challenge record not found...', domain)
   process.exit(1)
 }
 if (tr.id == null) throw new Error('Could not retrieve required information')
 
-console.log('Found challenge record for domain %O, starting deletion...', CERTBOT_DOMAIN)
+console.log('Found challenge record for domain %O, starting deletion...', domain)
 await cloudflare.dns.records.delete(tr.id, {
   zone_id: CLOUDFLARE_ZONE_ID,
   // @ts-ignore

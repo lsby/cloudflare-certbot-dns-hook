@@ -18,30 +18,32 @@ if (!CLOUDFLARE_API_TOKEN || !CERTBOT_DOMAIN || !CERTBOT_VALIDATION || !CLOUDFLA
   process.exit(1)
 }
 
+const domain = CERTBOT_DOMAIN.replace(/^\*\./, '')
+
 const cloudflare = new Cloudflare({ apiToken: CLOUDFLARE_API_TOKEN })
 
 console.log('Querying DNS record list...')
 const dnsList = await cloudflare.dns.records.list({ zone_id: CLOUDFLARE_ZONE_ID })
 
-var tr = dnsList.result.filter((a) => a.name == CERTBOT_DOMAIN)[0]
+var tr = dnsList.result.filter((record) => record.name == domain)[0]
 if (tr == null) {
-  console.log('Domain %O not found...', CERTBOT_DOMAIN)
+  console.log('Domain %O not found...', domain)
   process.exit(1)
 }
 
-console.log('Domain %O found, adding challenge record...', CERTBOT_DOMAIN)
+console.log('Domain %O found, adding challenge record...', domain)
 await cloudflare.dns.records.create({
   zone_id: CLOUDFLARE_ZONE_ID,
   content: CERTBOT_VALIDATION,
-  name: '_acme-challenge.' + CERTBOT_DOMAIN,
+  name: '_acme-challenge.' + domain,
   type: 'TXT',
 })
 console.log('Successfully added')
 
 console.log('Wait for a minute for DNS propagation....')
-await new Promise((res, _rej) => {
+await new Promise((resolve, _reject) => {
   setTimeout(() => {
-    res(null)
+    resolve(null)
   }, 60 * 1000)
 })
 

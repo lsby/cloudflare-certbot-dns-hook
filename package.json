@@ -1,6 +1,10 @@
 {
   "name": "@lsby/cloudflare-certbot-dns-hook",
   "version": "0.0.5",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lsby/tool-cloudflare-certbot-dns-hook"
+  },
   "type": "module",
   "bin": {
     "lsby-cloudflare-certbot-dns-hook-auth": "dist/auth.js",
@@ -38,9 +42,5 @@
     "prettier-plugin-packagejson": "^2.5.0",
     "tsx": "^4.7.3",
     "typescript": "^5.4.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lsby/tool-cloudflare-certbot-dns-hook"
   }
 }
